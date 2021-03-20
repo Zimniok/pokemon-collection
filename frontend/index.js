@@ -1,8 +1,47 @@
 function showList(res){
-  for (var i = 0;i < res.data.length;i++){
-    document.getElementById('div1').appendChild(document.createElement("div").appendChild(document.createTextNode('id: ' + res.data[i].id + ' name: '+ res.data[i].name+'\r\n')))
-  } 
+  // for (var i = 0;i < res.data.length;i++){
+  //   document.getElementById('div1').appendChild(document.createElement("div").appendChild(document.createTextNode('id: ' + res.data[i].id + ' name: '+ res.data[i].name+'\r\n')))
+  // }
+
 }
+function generate_table(){
+  var body = document.getElementsByTagName("body")[0];
+  // creates a <table> element and a <tbody> element
+   var tbl = document.createElement("table");
+   var tblBody = document.createElement("tbody");
+
+
+   for (var i = 0; i < 2; i++) {
+     // creates a table row
+     var row = document.createElement("tr");
+
+     for (var j = 0; j < 2; j++) {
+       // Create a <td> element and a text node, make the text
+       // node the contents of the <td>, and put the <td> at
+       // the end of the table row
+       var cell = document.createElement("td");
+       var cellText = document.createTextNode("cell in row "+i+", column "+j);
+       cell.appendChild(cellText);
+       row.appendChild(cell);
+     }
+
+     // add the row to the end of the table body
+     tblBody.appendChild(row);
+   }
+
+   // put the <tbody> in the <table>
+   tbl.appendChild(tblBody);
+   // appends <table> into <body>
+   body.appendChild(tbl);
+   // sets the border attribute of tbl to 2;
+   tbl.setAttribute("border", "2");
+   var xD = document.getElementById("div2");
+   xD.appendChild(tbl);
+ }
+
+
+
+
 var para = document.createElement("p");
 var node = document.createTextNode("This is new.");
 para.appendChild(node);
@@ -12,8 +51,16 @@ element.appendChild(para);
 
 
 
+
+
+
+
+
+
+
+
+
 const url='http://localhost:5000/all_cards';
 fetch(url)
 .then(data=>{return data.json()})
 .then(res=>{showList(res)})
-
