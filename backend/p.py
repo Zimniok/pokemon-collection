@@ -10,5 +10,3 @@ def searchByID(id):
             return(card)
 def getCards():
     return {'data':[{'name':i['name'], 'id':i['number']} for i in data]}
-
-print(getCards())
