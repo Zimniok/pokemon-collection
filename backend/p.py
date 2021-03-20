@@ -8,5 +8,7 @@ def searchByID(id):
     for card in data:
         if card['number'] == str(id):
             return(card)
+def getCards():
+    return {'data':[{'name':i['name'], 'id':i['number']} for i in data]}
 
-print(json.dumps(searchByID(10)))
+print(getCards())
