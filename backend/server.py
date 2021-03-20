@@ -13,6 +13,10 @@ def hello_world():
 def getCardByID(id=None):
     return p.searchByID(id)
 
+@app.route('/card/set/<id>/<status>')
+def setCard(id=None,status=None):
+    return p.setCard(id,status)
+
 @app.route('/all_cards')
 def getAllCards():
     return p.getCards()

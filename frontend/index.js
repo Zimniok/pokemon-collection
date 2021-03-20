@@ -1,7 +1,78 @@
+function setCard(id, status){
+  const url='http://localhost:5000/card/set/'+id+'/'+(status?1:0);
+  fetch(url)
+  .then(data=>{return data.json()})
+}
+
+function showCardInfo(id){
+  const url='http://localhost:5000/card/id/'+id;
+  fetch(url)
+  .then(data=>{return data.json()})
+  .then(res=>{
+    var cardInfoDiv = document.getElementById("cardInfoDiv");
+
+    if(cardInfoDiv.childNodes[0])
+      cardInfoDiv.removeChild(cardInfoDiv.childNodes[0]);
+
+    var image = document.createElement("img");
+    image.src = res.images.large;
+    cardInfoDiv.appendChild(image);
+  })
+}
+
 function showList(res){
-  // for (var i = 0;i < res.data.length;i++){
-  //   document.getElementById('div1').appendChild(document.createElement("div").appendChild(document.createTextNode('id: ' + res.data[i].id + ' name: '+ res.data[i].name+'\r\n')))
-  // }
+  var t = document.createElement("table");
+  var tb = document.createElement("tbody");
+
+  var headderRow = document.createElement("tr");
+  var idCell = document.createElement("td");
+  var nameCell = document.createElement("td");
+  var ownCell = document.createElement("td");
+
+  var idText = document.createTextNode("ID");
+  var nameText = document.createTextNode("Name");
+  var ownText = document.createTextNode("Owned");
+
+  idCell.appendChild(idText);
+  nameCell.appendChild(nameText);
+  ownCell.appendChild(ownText);
+
+  headderRow.appendChild(idCell);
+  headderRow.appendChild(nameCell);
+  headderRow.appendChild(ownCell);
+
+  tb.appendChild(headderRow);
+
+  for (var i = 0;i < res.data.length;i++){
+    var id = res.data[i].id;
+    var row = document.createElement("tr");
+
+    var cell1 = document.createElement("td");
+    var cell2 = document.createElement("td");
+    var cell3 = document.createElement("td");
+
+    var text = document.createTextNode(id);
+    var text2 = document.createTextNode(res.data[i].name);
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "checkbox");
+    x.checked = res.data[i].owned == 1;
+    x.onclick = function() { setCard(this.parentNode.parentNode.firstChild.innerText, this.checked) };
+
+    cell1.appendChild(text);
+    cell2.appendChild(text2);
+    cell3.appendChild(x);
+
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+    row.onclick = function() { showCardInfo(this.childNodes[0].innerText) };
+
+    tb.appendChild(row);
+  }
+
+  t.appendChild(tb);
+  var mainTableDiv = document.getElementById("mainTableDiv");
+  mainTableDiv.appendChild(t);
 
 }
 function generate_table(){

@@ -1,3 +1,13 @@
 table, th, td {
   border: 1px solid blue;
+  text-align: center;
+  font-size: 35px;
+}
+#mainTableDiv{
+  display: inline-block;
+  float: left;
+}
+#cardInfoDiv{
+  display: inline-block;
+  float: none;
 }
