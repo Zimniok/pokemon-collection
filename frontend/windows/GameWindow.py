@@ -18,7 +18,7 @@ class GameWindow(tk.Frame):
         temp = GetData.get_cards_from_set(set_id)
         for c in temp:
             if c["supertype"] == "Pokémon":
-                temp.append(c)
+                self.cards.append(c)
         self.master.title(self.cards[0]["set"]["name"] + ': game')
         self.pack()
         self.create_widgets()
